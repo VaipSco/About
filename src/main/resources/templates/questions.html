@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>About - Questions</title>
+</head>
+<body>
+
+<table>
+    <thead>
+        <th>ID</th>
+        <th>Описание</th>
+        <th>ID автора</th>
+        <th>Время</th>
+        <th>Одобрено</th>
+        <th>ID блоггера</th>
+    </thead>
+    <tbody>
+        <tr th:if="${quests.isEmpty()}">
+            <td>Нет</td>
+        </tr>
+            <tr th:each="quest : ${quests}">
+                <td><span th:text="${quest.id}">ID</span></td>
+                <td><span th:text="${quest.description}">Description</span></td>
+                <td><span th:text="${quest.author.id}">Author</span></td>
+                <td><span th:text="${quest.creationDate}">Creation Date</span></td>
+                <td><span th:text="${quest.approved}">Approved</span></td>
+                <td><span th:text="${quest.blogger.id}">blogger</span></td>
+            </tr>
+    <tbody/>
+
+</table>
+
+
+</body>
+</html>
