@@ -28,11 +28,11 @@ public class Question {
 
     @ManyToOne
     @JoinColumn
-    private User authorId;
+    private User author;
 
     @ManyToOne
     @JoinColumn
-    private User bloggerId;
+    private User blogger;
 
     private Date creationDate;
 

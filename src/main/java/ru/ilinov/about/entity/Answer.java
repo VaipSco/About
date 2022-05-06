@@ -25,7 +25,7 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn
-    private User authorId;
+    private User author;
 
     @Column
     private String text;
