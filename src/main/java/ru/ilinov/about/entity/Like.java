@@ -6,25 +6,22 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "\"user\"")
-
+@Entity(name = "\"like\"")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class Like {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
-    private Category category;
+    private Answer answer;
 
-    @Column
-    private String userName;
-
-    @Column
-    private String password;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private User user;
 }
+
