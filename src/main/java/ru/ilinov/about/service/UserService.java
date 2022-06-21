@@ -19,6 +19,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    //TODO Сделать проверку корректности введенных данных
     public boolean createUser(User user) {
         String userName = user.getUsername();
         if (userRepository.findByUsername(userName) != null) return false;

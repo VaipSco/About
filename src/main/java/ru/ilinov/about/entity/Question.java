@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -17,14 +19,14 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
-    @Column
     private String description;
 
-    @Column
     private boolean isApproved;
+
+    @OneToMany(mappedBy = "question")
+    private Set<Answer> answers = new HashSet<>();
 
     @ManyToOne
     @JoinColumn
