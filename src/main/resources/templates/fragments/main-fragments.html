@@ -1,0 +1,18 @@
+<head th:fragment="head(title)">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title th:replace="${title}"></title>
+</head>
+
+
+<div th:fragment="header-menu">
+   <ul th:if="${user} == null">
+      <li><a th:href="@{/login}">Войти</a></li>
+      <li><a th:href="@{/registration}">Зарегистироваться</a></li>
+   </ul>
+    <ul th:if="${user} != null">
+        <li th:text="${user.username}"></li>
+        <li><a th:href="@{/logout}">Выйти</a></li>
+    </ul>
+</div>
+
