@@ -5,6 +5,7 @@
 </head>
 <body>
 <div th:replace="fragments/main-fragments.html :: header-menu"></div>
+<h2>Вопросы</h2>
 <a th:href="@{/question/create}">Создать вопрос</a>
 <table>
     <thead>
@@ -20,12 +21,12 @@
             <td>Нет</td>
         </tr>
             <tr th:each="quest : ${quests}">
-                <td><span th:text="${quest.id}">ID</span></td>
+                <td><a th:href="@{/question/{id}(id=${quest.id})}"><span th:text="${quest.id}"></span></a></td>
                 <td><span th:text="${quest.description}">Description</span></td>
                 <td><span th:text="${quest.author.username}">Author</span></td>
                 <td><span th:text="${quest.creationDate}">Creation Date</span></td>
                 <td><span th:text="${quest.approved}">Approved</span></td>
-                <td><span th:text="${quest.blogger.username}">blogger</span></td>
+                <td><span th:text="${quest.blogger.name}">blogger</span></td>
             </tr>
     <tbody/>
 

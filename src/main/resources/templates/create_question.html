@@ -14,16 +14,24 @@
     </p>
     <p>
         <label for="blogger">Блоггер</label>
-        <input type="text" id="blogger" th:field="*{blogger.username}" placeholder="Блоггер" required>
+        <input type="text" id="blogger" th:field="*{blogger.name}" placeholder="Блоггер" required>
     </p>
-<!--    <p>-->
-<!--        <label for="answer">Ответ</label>-->
-<!--        <input type="text" id="answer" th:field="*{answers}" placeholder="Ответ" required>-->
-<!--    </p>-->
-<!--    <p>-->
-<!--        <label for="link_to_video">Ответ</label>-->
-<!--        <input type="text" id="link_to_video" th:field="*{answers[0].linkToVideo}" placeholder="Ссылка на видео" required>-->
-<!--    </p>-->
+    <p>
+        <label for="answer">Ответ</label>
+        <input type="text" id="answer" th:field="*{answers[0].text}" placeholder="Ответ" required>
+    </p>
+    <p>
+        <label for="link_to_video">Видео</label>
+        <input type="text" id="link_to_video" th:field="*{answers[0].linkToVideo}" placeholder="Ссылка на видео" required>
+    </p>
+    <p>
+        <label for="video_start">Время начала</label>
+        <input type="text" id="video_start" th:field="*{answers[0].videoStartPosition}" placeholder="Время начала" required>
+    </p>
+    <p>
+        <label for="video_end">Время конца</label>
+        <input type="text" id="video_end" th:field="*{answers[0].videoEndPosition}" placeholder="Время конца">
+    </p>
 
 
     <input type="submit" name="Создать">

@@ -7,11 +7,14 @@
 <div th:replace="fragments/main-fragments.html :: header-menu"></div>
 
 <p>Название: <span th:text="${question.description}"></span></p>
-<p>Блоггер: <span th:text="${question.blogger.username}"></span></p>
-<p>Ответ: <span th:text="${question.answers[0].text}"></span></p>
-<p>Видео:
-    <iframe th:src="${question.answers[0].linkToVideo}" width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></if></iframe>
-</p>
+<p>Блоггер: <span th:text="${question.blogger.name}"></span></p>
+<div  th:if="${!question.answers.isEmpty()}" class="answers">
+    <p>Ответ: <span th:text="${question.answers[0].text}"></span></p>
+    <p>Видео:
+        <iframe th:src="@{https://www.youtube.com/embed/{videoId}(videoId=${question.answers[0].linkToVideo},start=${question.answers[0].videoStartPosition},end=${question.answers[0].videoEndPosition})}" width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></if></iframe>
+    </p>
+</div>
+
 
 </body>
 </html>

@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table
@@ -25,8 +23,9 @@ public class Question {
 
     private boolean isApproved;
 
-    @OneToMany(mappedBy = "question")
-    private Set<Answer> answers = new HashSet<>();
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<Answer> answers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn
@@ -34,7 +33,7 @@ public class Question {
 
     @ManyToOne
     @JoinColumn
-    private User blogger;
+    private Blogger blogger;
 
     private Date creationDate;
 
