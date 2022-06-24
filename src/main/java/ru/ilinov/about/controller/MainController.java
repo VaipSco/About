@@ -29,12 +29,5 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/questions")
-    public String getAllQuestions(Model model) {
-
-        model.addAttribute("quests",questionService.getAllQuestions());
-
-        return "questions";
-    }
     
 }

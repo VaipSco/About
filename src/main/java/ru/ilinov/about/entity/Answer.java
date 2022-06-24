@@ -16,10 +16,9 @@ public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Question question;
 
@@ -27,11 +26,14 @@ public class Answer {
     @JoinColumn
     private User author;
 
-    @Column
     private String text;
 
-    @Column
     private String linkToVideo;
+
+    @Column(nullable = false)
+    private Integer videoStartPosition;
+
+    private Integer videoEndPosition;
 
 
 }

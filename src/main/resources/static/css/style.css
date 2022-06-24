@@ -3,6 +3,6 @@
     padding: 0;
 }
 
-p {
-    color: chocolate;
+.main_menu li {
+    display: inline-block;
 }

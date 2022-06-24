@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Table
@@ -17,14 +17,15 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
-    @Column
     private String description;
 
-    @Column
     private boolean isApproved;
+
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<Answer> answers = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn
@@ -32,7 +33,7 @@ public class Question {
 
     @ManyToOne
     @JoinColumn
-    private User blogger;
+    private Blogger blogger;
 
     private Date creationDate;
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" >
+<head th:insert="fragments/main-fragments.html :: head(~{::title})">
+    <title>Вопрос</title>
+</head>
+<body>
+<div th:replace="fragments/main-fragments.html :: header-menu"></div>
+
+<p>Название: <span th:text="${question.description}"></span></p>
+<p>Блоггер: <span th:text="${question.blogger.name}"></span></p>
+<div  th:if="${!question.answers.isEmpty()}" class="answers">
+    <p>Ответ: <span th:text="${question.answers[0].text}"></span></p>
+    <p>Видео:
+        <iframe th:src="@{https://www.youtube.com/embed/{videoId}(videoId=${question.answers[0].linkToVideo},start=${question.answers[0].videoStartPosition},end=${question.answers[0].videoEndPosition})}" width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></if></iframe>
+    </p>
+</div>
+
+
+</body>
+</html>

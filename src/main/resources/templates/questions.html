@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>About - Questions</title>
+<head th:insert="fragments/main-fragments.html :: head(~{::title})">
+    <title>Вопросы</title>
 </head>
 <body>
-
+<div th:replace="fragments/main-fragments.html :: header-menu"></div>
+<h2>Вопросы</h2>
+<a th:href="@{/question/create}">Создать вопрос</a>
 <table>
     <thead>
         <th>ID</th>
         <th>Описание</th>
-        <th>ID автора</th>
+        <th>Имя автора</th>
         <th>Время</th>
         <th>Одобрено</th>
-        <th>ID блоггера</th>
+        <th>Имя блоггера</th>
     </thead>
     <tbody>
         <tr th:if="${quests.isEmpty()}">
             <td>Нет</td>
         </tr>
             <tr th:each="quest : ${quests}">
-                <td><span th:text="${quest.id}">ID</span></td>
+                <td><a th:href="@{/question/{id}(id=${quest.id})}"><span th:text="${quest.id}"></span></a></td>
                 <td><span th:text="${quest.description}">Description</span></td>
-                <td><span th:text="${quest.author.id}">Author</span></td>
+                <td><span th:text="${quest.author.username}">Author</span></td>
                 <td><span th:text="${quest.creationDate}">Creation Date</span></td>
                 <td><span th:text="${quest.approved}">Approved</span></td>
-                <td><span th:text="${quest.blogger.id}">blogger</span></td>
+                <td><span th:text="${quest.blogger.name}">blogger</span></td>
             </tr>
     <tbody/>
 
