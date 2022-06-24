@@ -10,6 +10,7 @@ import ru.ilinov.about.repository.BloggerRepository;
 import ru.ilinov.about.repository.QuestionRepository;
 import ru.ilinov.about.repository.UserRepository;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +26,14 @@ public class QuestionService {
 
     BloggerRepository bloggerRepository;
 
-    QuestionService(QuestionRepository questionRepository, UserRepository userRepository, BloggerRepository bloggerRepository) {
+    AnswerService answerService;
+
+    QuestionService(QuestionRepository questionRepository, UserRepository userRepository, BloggerRepository bloggerRepository,
+                    AnswerService answerService) {
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
         this.bloggerRepository = bloggerRepository;
+        this.answerService = answerService;
     }
 
     public List<Question> findAllQuestions() {
@@ -54,7 +59,7 @@ public class QuestionService {
     }
 
 
-    //TODO Сделать обработку на некорректность введенного URI
+    //TODO Обработку на некорректность введенного URI
     private String getVideoIdFromYoutubeURI(String youtubeVideoURI) {
         Pattern videoIdPattern = Pattern.compile("v=(\\w+)&");
         Matcher videoIdMatcher = videoIdPattern.matcher(youtubeVideoURI);
@@ -67,5 +72,6 @@ public class QuestionService {
         }
 
     }
+
 
 }

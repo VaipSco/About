@@ -7,9 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.ilinov.about.entity.Question;
+import ru.ilinov.about.service.AnswerService;
 import ru.ilinov.about.service.QuestionService;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/question")
@@ -17,8 +16,11 @@ public class QuestionController {
 
     QuestionService questionService;
 
-    QuestionController(QuestionService questionService) {
+    AnswerService answerService;
+
+    QuestionController(QuestionService questionService, AnswerService answerService) {
         this.questionService = questionService;
+        this.answerService = answerService;
     }
 
     @PreAuthorize("hasAnyAuthority('USER', 'MODER', 'ADMIN')")
@@ -30,8 +32,10 @@ public class QuestionController {
 
     @PreAuthorize("hasAnyAuthority('USER', 'MODER', 'ADMIN')")
     @PostMapping("/create")
-    public String createQuestion(Question question) {
-
+    public String createQuestion(Question question, @RequestParam(name = "videoStartPosition") String videoStart,
+                                 @RequestParam(name = "videoEndPosition") String videoEnd) {
+        question.getAnswers().get(0).setVideoStartPosition(answerService.checkAndConvertTimeToAbsolute(videoStart));
+        question.getAnswers().get(0).setVideoEndPosition(answerService.checkAndConvertTimeToAbsolute(videoEnd));
         questionService.createQuestion(question);
         return "create_question";
     }
