@@ -32,12 +32,13 @@ public class QuestionController {
 
     @PreAuthorize("hasAnyAuthority('USER', 'MODER', 'ADMIN')")
     @PostMapping("/create")
-    public String createQuestion(Question question, @RequestParam(name = "videoStartPosition") String videoStart,
+    public String createQuestion(Question question,
+                                 @RequestParam(name = "videoStartPosition") String videoStart,
                                  @RequestParam(name = "videoEndPosition") String videoEnd) {
         question.getAnswers().get(0).setVideoStartPosition(answerService.checkAndConvertTimeToAbsolute(videoStart));
         question.getAnswers().get(0).setVideoEndPosition(answerService.checkAndConvertTimeToAbsolute(videoEnd));
         questionService.createQuestion(question);
-        return "create_question";
+        return "redirect:/question/" + question.getId();
     }
 
     @GetMapping
