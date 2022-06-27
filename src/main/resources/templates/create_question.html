@@ -14,8 +14,11 @@
     </p>
     <p>
         <label for="blogger">Блоггер</label>
-        <input type="text" id="blogger" th:field="*{blogger.name}" placeholder="Блоггер" required>
+        <select size="1" th:field="*{blogger.name}">
+            <option th:each="blogger : ${bloggers}" th:value="${blogger.name}" th:text="${blogger.name}" id="blogger"></option>
+        </select>
     </p>
+
     <p>
         <label for="answer">Ответ</label>
         <input type="text" id="answer" th:field="*{answers[0].text}" placeholder="Ответ" required>
