@@ -6,12 +6,13 @@ import org.springframework.stereotype.Service;
 public class AnswerService {
 
     //TODO Обработка неккоректного значения
+    //TODO Возможно вынести этот фрагмент в отдельный класс (хелпер?)
     public int checkAndConvertTimeToAbsolute(String time) {
         String[] timeArray;
         switch (time.split(":").length) {
             case 3:
                 timeArray = time.split(":");
-                return Integer.parseInt(timeArray[0]) * 3600 + Integer.parseInt(timeArray[1]) * 60 + Integer.parseInt(timeArray[0]);
+                return Integer.parseInt(timeArray[0]) * 3600 + Integer.parseInt(timeArray[1]) * 60 + Integer.parseInt(timeArray[2]);
             case 2:
                 timeArray = time.split(":");
                 return Integer.parseInt(timeArray[0]) * 60 + Integer.parseInt(timeArray[1]);
