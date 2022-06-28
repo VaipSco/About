@@ -66,6 +66,19 @@ public class QuestionService {
         return questionRepository.findByIsApprovedIsTrue();
     }
 
+    public void approveQuestion(Long id) {
+        if (questionRepository.findById(id).isPresent()) {
+            Question question = questionRepository.findById(id).get();
+            question.setApproved(true);
+            questionRepository.save(question);
+        }
+    }
+
+    public void deleteQuestion(Long id) {
+        questionRepository.deleteById(id);
+    }
+
+
     //TODO Обработку на некорректность введенного URI
     private String getVideoIdFromYoutubeURI(String youtubeVideoURI) {
         Pattern videoIdPattern = Pattern.compile("v=(\\w+)&");

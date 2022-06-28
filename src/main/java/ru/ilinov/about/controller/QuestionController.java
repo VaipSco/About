@@ -60,7 +60,7 @@ public class QuestionController {
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User) {
             user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (user.getRoles().contains(Role.ADMIN) || user.getRoles().contains(Role.MODER)) {
-                List<Question> unmoderatedQuestionsList = new ArrayList<>();
+                List<Question> unmoderatedQuestionsList;
                 unmoderatedQuestionsList = questionService.findUnmoderatedQuestions();
                 model.addAttribute("unmoderatedQuestions", unmoderatedQuestionsList);
             }
@@ -70,15 +70,18 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public String getQuestion(@PathVariable String id, Model model) {
-        if (questionService.findQuestionById(Long.parseLong(id)).isPresent()) {
-            Question question = questionService.findQuestionById(Long.parseLong(id)).get();
-            model.addAttribute("question", question);
-            return "question";
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Вопрос не найден");
+        User user = null;
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User) {
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         }
+        if (questionService.findQuestionById(Long.parseLong(id)).isPresent()){
+            Question question = questionService.findQuestionById(Long.parseLong(id)).get();
+            if (question.isApproved() || (user != null && (user.getRoles().contains(Role.ADMIN) || user.getRoles().contains(Role.MODER)))) {
+                model.addAttribute("question", question);
+                return "question";
+            } else throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Вопрос на модерации");
 
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Вопрос не найден");
 
     }
 
