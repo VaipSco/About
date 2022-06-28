@@ -6,6 +6,19 @@
 <body>
 <div th:replace="fragments/main-fragments.html :: header-menu"></div>
 
+<div class="moderate" th:if="!${question.approved}">
+    <p style="font-weight: bold; color: red;">Вопрос на рассмотрении</p>
+    <form th:action="@{/administration/question/moderate}" method="get">
+        <select size="1" name="approve">
+            <option label="Одобрить" value="true" ></option>
+            <option label="Отклонить" value="false"></option>
+        </select>
+        <input type="hidden" name="id" th:value="${question.id}">
+        <input type="submit">
+    </form>
+    <br>
+</div>
+
 <p>Название: <span th:text="${question.description}"></span></p>
 <p>Блоггер: <span th:text="${question.blogger.name}"></span></p>
 <div  th:if="${!question.answers.isEmpty()}" class="answers">
@@ -14,6 +27,7 @@
         <iframe th:src="@{https://www.youtube.com/embed/{videoId}(videoId=${question.answers[0].linkToVideo},start=${question.answers[0].videoStartPosition},end=${question.answers[0].videoEndPosition})}" width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></if></iframe>
     </p>
 </div>
+
 
 
 </body>
