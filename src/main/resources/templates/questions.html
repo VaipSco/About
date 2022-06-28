@@ -1,36 +1,66 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/main-fragments.html :: head(~{::title})">
     <title>Вопросы</title>
 </head>
 <body>
 <div th:replace="fragments/main-fragments.html :: header-menu"></div>
-<h2>Вопросы</h2>
+
 <a th:href="@{/question/create}">Создать вопрос</a>
-<table>
-    <thead>
+
+
+<br><br>
+<div class="unmoderated" sec:authorize="hasAnyAuthority('ADMIN','MODER')">
+    <h2>На одобрении</h2>
+    <table>
+        <thead>
         <th>ID</th>
         <th>Описание</th>
         <th>Имя автора</th>
-        <th>Время</th>
-        <th>Одобрено</th>
+        <th>Время создания</th>
         <th>Имя блоггера</th>
-    </thead>
-    <tbody>
-        <tr th:if="${quests.isEmpty()}">
+        </thead>
+        <tbody>
+        <tr th:if="${unmoderatedQuestions.isEmpty()}">
             <td>Нет</td>
         </tr>
-            <tr th:each="quest : ${quests}">
-                <td><a th:href="@{/question/{id}(id=${quest.id})}"><span th:text="${quest.id}"></span></a></td>
-                <td><span th:text="${quest.description}">Description</span></td>
-                <td><span th:text="${quest.author.username}">Author</span></td>
-                <td><span th:text="${quest.creationDate}">Creation Date</span></td>
-                <td><span th:text="${quest.approved}">Approved</span></td>
-                <td><span th:text="${quest.blogger.name}">blogger</span></td>
-            </tr>
-    <tbody/>
+        <tr th:each="question : ${unmoderatedQuestions}">
+            <td><a th:href="@{/question/{id}(id=${question.id})}"><span th:text="${question.id}"></span></a></td>
+            <td><span th:text="${question.description}">Description</span></td>
+            <td><span th:text="${question.author.username}">Author</span></td>
+            <td><span th:text="${question.creationDate}">Creation Date</span></td>
+            <td><span th:text="${question.blogger.name}">blogger</span></td>
+        </tr>
+        <tbody/>
+    </table>
+</div>
 
-</table>
+<div class="questions">
+    <h2>Вопросы</h2>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>Описание</th>
+        <th>Имя автора</th>
+        <th>Время создания</th>
+        <th>Имя блоггера</th>
+        </thead>
+        <tbody>
+        <tr th:if="${questions.isEmpty()}">
+            <td>Нет</td>
+        </tr>
+        <tr th:each="question : ${questions}">
+            <td><a th:href="@{/question/{id}(id=${question.id})}"><span th:text="${question.id}"></span></a></td>
+            <td><span th:text="${question.description}">Description</span></td>
+            <td><span th:text="${question.author.username}">Author</span></td>
+            <td><span th:text="${question.creationDate}">Creation Date</span></td>
+            <td><span th:text="${question.blogger.name}">blogger</span></td>
+        </tr>
+        <tbody/>
+
+    </table>
+</div>
+
 
 
 </body>

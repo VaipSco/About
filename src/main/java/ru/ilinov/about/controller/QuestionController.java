@@ -2,14 +2,21 @@ package ru.ilinov.about.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import ru.ilinov.about.entity.Question;
+import ru.ilinov.about.entity.Role;
+import ru.ilinov.about.entity.User;
 import ru.ilinov.about.service.AnswerService;
 import ru.ilinov.about.service.BloggerService;
 import ru.ilinov.about.service.QuestionService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/question")
@@ -48,7 +55,16 @@ public class QuestionController {
 
     @GetMapping
     public String getAllQuestions(Model model) {
-        model.addAttribute("quests",questionService.findAllQuestions());
+        model.addAttribute("questions", questionService.findApprovedQuestions());
+        User user;
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof User) {
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (user.getRoles().contains(Role.ADMIN) || user.getRoles().contains(Role.MODER)) {
+                List<Question> unmoderatedQuestionsList = new ArrayList<>();
+                unmoderatedQuestionsList = questionService.findUnmoderatedQuestions();
+                model.addAttribute("unmoderatedQuestions", unmoderatedQuestionsList);
+            }
+        }
         return "questions";
     }
 

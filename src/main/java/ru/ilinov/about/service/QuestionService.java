@@ -58,6 +58,13 @@ public class QuestionService {
         return true;
     }
 
+    public List<Question> findUnmoderatedQuestions() {
+        return questionRepository.findByIsApprovedIsFalse();
+    }
+
+    public List<Question> findApprovedQuestions() {
+        return questionRepository.findByIsApprovedIsTrue();
+    }
 
     //TODO Обработку на некорректность введенного URI
     private String getVideoIdFromYoutubeURI(String youtubeVideoURI) {
