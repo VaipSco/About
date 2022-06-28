@@ -81,11 +81,11 @@ public class QuestionService {
 
     //TODO Обработку на некорректность введенного URI
     private String getVideoIdFromYoutubeURI(String youtubeVideoURI) {
-        Pattern videoIdPattern = Pattern.compile("v=(\\w+)&");
+        Pattern videoIdPattern = Pattern.compile("(v=|\\.be/)([\\w\\-_]+)");
         Matcher videoIdMatcher = videoIdPattern.matcher(youtubeVideoURI);
         String videoId;
         if (videoIdMatcher.find()) {
-            videoId = videoIdMatcher.group(1);
+            videoId = videoIdMatcher.group(2);
             return videoId;
         } else {
             return null;
