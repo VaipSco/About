@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
+<head th:insert="fragments/main-fragments.html :: head(~{::title})">
+    <title>Регистрация</title>
 </head>
 
 <body>
+<div th:replace="fragments/main-fragments.html :: header-menu"></div>
+
 <div class = "container">
     <form th:action="@{/registration}" th:object="${user}" method="post">
         <h2>Registration</h2>
