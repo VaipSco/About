@@ -9,8 +9,9 @@
 <a th:href="@{/question/create}">Создать вопрос</a>
 
 
-<br><br>
-<div class="unmoderated" sec:authorize="hasAnyAuthority('ADMIN','MODER')">
+
+<div class="unmoderated" sec:authorize="hasAnyAuthority('ADMIN','MODER')" th:if="!${unmoderatedQuestions.isEmpty()}">
+    <br>
     <h2>На одобрении</h2>
     <table>
         <thead>
@@ -21,9 +22,6 @@
         <th>Имя блоггера</th>
         </thead>
         <tbody>
-        <tr th:if="${unmoderatedQuestions.isEmpty()}">
-            <td>Нет</td>
-        </tr>
         <tr th:each="question : ${unmoderatedQuestions}">
             <td><a th:href="@{/question/{id}(id=${question.id})}"><span th:text="${question.id}"></span></a></td>
             <td><span th:text="${question.description}">Description</span></td>
@@ -33,6 +31,7 @@
         </tr>
         <tbody/>
     </table>
+    <br>
 </div>
 
 <div class="questions">
