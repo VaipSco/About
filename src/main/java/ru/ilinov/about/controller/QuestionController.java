@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import ru.ilinov.about.entity.Answer;
 import ru.ilinov.about.entity.Question;
 import ru.ilinov.about.entity.Role;
 import ru.ilinov.about.entity.User;
@@ -47,8 +48,10 @@ public class QuestionController {
     public String createQuestion(Question question,
                                  @RequestParam(name = "videoStartPosition") String videoStart,
                                  @RequestParam(name = "videoEndPosition") String videoEnd) {
-        question.getAnswers().get(0).setVideoStartPosition(answerService.checkAndConvertTimeToAbsolute(videoStart));
-        question.getAnswers().get(0).setVideoEndPosition(answerService.checkAndConvertTimeToAbsolute(videoEnd));
+        Answer answer = question.getAnswers().get(0);
+        answer.setVideoStartPosition(answerService.checkAndConvertTimeToAbsolute(videoStart));
+        if (!videoEnd.isEmpty())
+            answer.setVideoEndPosition(answerService.checkAndConvertTimeToAbsolute(videoEnd));
         questionService.createQuestion(question);
         return "redirect:/question/" + question.getId();
     }

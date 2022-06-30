@@ -10,8 +10,10 @@
 <div th:fragment="header-menu" class="main_menu">
     <h1>About</h1>
    <ul sec:authorize="isAnonymous()">
-      <li><a th:href="@{/login}">Войти</a></li>
-      <li><a th:href="@{/registration}">Зарегистироваться</a></li>
+       <li><a th:href="@{/}">Главная</a></li>
+       <li><a th:href="@{/question}">Вопросы</a></li>
+       <li><a th:href="@{/login}">Войти</a></li>
+       <li><a th:href="@{/registration}">Зарегистироваться</a></li>
    </ul>
     <ul sec:authorize="isAuthenticated()">
         <li th:text="${#authentication.getPrincipal().getUsername()}"></li>

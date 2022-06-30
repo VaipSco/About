@@ -6,7 +6,7 @@
 <body>
 <div th:replace="fragments/main-fragments.html :: header-menu"></div>
 
-<a th:href="@{/question/create}">Создать вопрос</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/question/create}">Создать вопрос</a>
 
 
 
