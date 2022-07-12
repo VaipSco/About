@@ -19,10 +19,22 @@
     <br>
 </div>
 
-<p>Название: <span th:text="${question.description}"></span></p>
+<h2 th:text="${question.description}"></h2>
+<p><i th:text="${#dates.format(question.creationDate, 'dd-MM-yyyy HH:mm')}"></i></p><br>
 <p>Блоггер: <span th:text="${question.blogger.name}"></span></p>
 <div  th:if="${!question.answers.isEmpty()}" class="answers">
     <p>Ответ: <span th:text="${question.answers[0].text}"></span></p>
+    <p th:if="${question.answers[0].videoEndPosition != null}">Фрагмент: <span th:text="
+    (${question.answers[0].videoStartPosition / 3600 == 0 ? '' : (question.answers[0].videoStartPosition / 3600) + ':' } +
+    ${question.answers[0].videoStartPosition / 3600 == 0 ? (question.answers[0].videoStartPosition / 60) : #numbers.formatInteger(((question.answers[0].videoStartPosition - 3600 * (question.answers[0].videoStartPosition / 3600)) / 60), 2)} + ':' +
+    ${question.answers[0].videoStartPosition / 60 == 0 ? #numbers.formatInteger(question.answers[0].videoStartPosition, 2) : #numbers.formatInteger((question.answers[0].videoStartPosition / 3600 == 0 ? question.answers[0].videoStartPosition - question.answers[0].videoStartPosition / 60 * 60 : ((question.answers[0].videoStartPosition - 3600 * (question.answers[0].videoStartPosition / 3600)) - 60 * ((question.answers[0].videoStartPosition - 3600 * (question.answers[0].videoStartPosition / 3600)) / 60))), 2)})
+     + ' - ' +
+     (${question.answers[0].videoEndPosition / 3600 == 0 ? '' : (question.answers[0].videoEndPosition / 3600) + ':' } +
+    ${question.answers[0].videoEndPosition / 3600 == 0 ? (question.answers[0].videoEndPosition / 60) : #numbers.formatInteger(((question.answers[0].videoEndPosition - 3600 * (question.answers[0].videoEndPosition / 3600)) / 60), 2)} + ':' +
+    ${question.answers[0].videoEndPosition / 60 == 0 ? #numbers.formatInteger(question.answers[0].videoEndPosition, 2) : #numbers.formatInteger((question.answers[0].videoEndPosition / 3600 == 0 ? question.answers[0].videoEndPosition - question.answers[0].videoEndPosition / 60 * 60 : ((question.answers[0].videoEndPosition - 3600 * (question.answers[0].videoEndPosition / 3600)) - 60 * ((question.answers[0].videoEndPosition - 3600 * (question.answers[0].videoEndPosition / 3600)) / 60))), 2)})
+">
+
+    </span></p>
     <p>Видео:
         <iframe th:src="@{https://www.youtube.com/embed/{videoId}(videoId=${question.answers[0].linkToVideo},start=${question.answers[0].videoStartPosition},end=${question.answers[0].videoEndPosition})}" width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></if></iframe>
     </p>
