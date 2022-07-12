@@ -2,7 +2,9 @@ package ru.ilinov.about.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.ilinov.about.service.CategoryService;
 import ru.ilinov.about.service.QuestionService;
 
 @Controller
@@ -23,6 +25,11 @@ public class AdministrationController {
         return "Test method of Administration Controller";
     }
 
+    @GetMapping("")
+    public String administrationPage() {
+        return "administration";
+    }
+
     @PreAuthorize("hasAnyAuthority('ADMIN','MODER')")
     @GetMapping("/question/moderate")
     public String moderateQuestion(@RequestParam(name="id") Long questionId, @RequestParam(name="approve") Boolean approve) {
@@ -34,4 +41,6 @@ public class AdministrationController {
             return "redirect:/question";
         }
     }
+
+
 }
