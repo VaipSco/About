@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" >
+<head th:insert="fragments/main-fragments.html :: head(~{::title})">
+  <title>Редактирование категории</title>
+</head>
+<body>
+<div th:replace="fragments/main-fragments.html :: header-menu"></div>
+
+<h2>Редактирование категории</h2>
+
+<form th:action="@{/category/edit/{id}(id=${category.id})}" th:method="put" >
+  <input type="text" th:field="${category.name}">
+  <input type="submit">
+</form>
+
+</body>
+</html>
