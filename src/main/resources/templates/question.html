@@ -22,6 +22,7 @@
 <h2 th:text="${question.description}"></h2>
 <p><i th:text="${#dates.format(question.creationDate, 'dd-MM-yyyy HH:mm')}"></i></p><br>
 <p>Блоггер: <span th:text="${question.blogger.name}"></span></p>
+<p th:if="${question.category != null}">Категория: <span th:text="${question.category.name}"></span></p>
 <div  th:if="${!question.answers.isEmpty()}" class="answers">
     <p>Ответ: <span th:text="${question.answers[0].text}"></span></p>
     <p th:if="${question.answers[0].videoEndPosition != null}">Фрагмент: <span th:text="
