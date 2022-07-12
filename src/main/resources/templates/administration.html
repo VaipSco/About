@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" >
 <head th:insert="fragments/main-fragments.html :: head(~{::title})">
-  <title>Главная</title>
+    <title>Администрирование</title>
 </head>
 <body>
 <div th:replace="fragments/main-fragments.html :: header-menu"></div>
 
-<p>Main page</p>
+<h2>Администрирование</h2>
+
+<a th:href="@{/category/}">Категории</a>
 
 </body>
 </html>

@@ -19,6 +19,7 @@
         <li th:text="${#authentication.getPrincipal().getUsername()}"></li>
         <li><a th:href="@{/}">Главная</a></li>
         <li><a th:href="@{/question}">Вопросы</a></li>
+        <li><a th:href="@{/administration}" sec:authorize="hasAuthority('ADMIN')">Администрирование</a></li>
         <li><a th:href="@{/logout}">Выйти</a></li>
     </ul>
     <br>
