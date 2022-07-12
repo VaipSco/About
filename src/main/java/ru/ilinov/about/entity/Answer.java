@@ -26,6 +26,7 @@ public class Answer {
     @JoinColumn
     private User author;
 
+    @Column(length = 2000)
     private String text;
 
     private String linkToVideo;
