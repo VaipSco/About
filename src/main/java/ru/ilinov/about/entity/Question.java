@@ -37,4 +37,8 @@ public class Question {
 
     private Date creationDate;
 
+    @ManyToOne
+    @JoinColumn
+    private Category category;
+
 }
